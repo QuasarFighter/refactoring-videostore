@@ -22,4 +22,11 @@ public class Rental
     return movie.getTitle();
   }
 
+  public double getAmount(){
+	    return movie.getAmount(daysRented);
+  }
+
+  public int getRentalPoints(){
+	    return movie.getRentalPoints(daysRented);
+  }
 }

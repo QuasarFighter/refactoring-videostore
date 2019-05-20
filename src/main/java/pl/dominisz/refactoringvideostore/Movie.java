@@ -1,24 +1,19 @@
 package pl.dominisz.refactoringvideostore;
 
-public class Movie
+public abstract class Movie
 {
-	public static final int REGULAR = 1;
-	public static final int NEW_RELEASE = 2;
-	public static final int CHILDRENS = 3;
-
 	private String title;
 
-	private int priceCode;
-
-	public Movie(String title, int priceCode) {
+	public Movie(String title) {
 		this.title 		= title;
-		this.priceCode = priceCode;
 	}
 		
 	public String getTitle () {
 		return title;
 	}
 
-	public int getPriceCode() { return priceCode; }
+	public abstract double getAmount(int daysRented);
+
+	public abstract int getRentalPoints(int daysRented);
 
 }

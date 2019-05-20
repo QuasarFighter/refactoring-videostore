@@ -10,33 +10,12 @@ public class StatementCreator {
         int					frequentRenterPoints 	= 0;
         String 				result 					= "Rental Record for " + customer.getName() + "\n";
 
-        for (Rental each : customer.getRentals()) {
-            double 		thisAmount = 0;
+        for (Rental rental : customer.getRentals()) {
+            double thisAmount = rental.getAmount();//getAmountForRental(rental);
 
-            // determines the amount for each line
-            switch (each.getMovie().getPriceCode ()) {
-                case Movie.REGULAR:
-                    thisAmount += 2;
-                    if (each.getDaysRented () > 2)
-                        thisAmount += (each.getDaysRented () - 2) * 1.5;
-                    break;
-                case Movie.NEW_RELEASE:
-                    thisAmount += each.getDaysRented () * 3;
-                    break;
-                case Movie.CHILDRENS:
-                    thisAmount += 1.5;
-                    if (each.getDaysRented () > 3)
-                        thisAmount += (each.getDaysRented () - 3) * 1.5;
-                    break;
-            }
+            frequentRenterPoints += rental.getRentalPoints();//getRentalPointsForRental(rental);
 
-            frequentRenterPoints++;
-
-            if (each.getMovie ().getPriceCode () == Movie.NEW_RELEASE
-                    && each.getDaysRented () > 1)
-                frequentRenterPoints++;
-
-            result += "\t" + each.getMovie ().getTitle () + "\t"
+            result += "\t" + rental.getMovie ().getTitle () + "\t"
                     + String.valueOf (thisAmount) + "\n";
             totalAmount += thisAmount;
 
@@ -48,4 +27,33 @@ public class StatementCreator {
 
         return result;
     }
+
+    /*private static int getRentalPointsForRental(Rental rental){
+        int frequentRenterPoints = 1;
+        if (rental.getMovie ().getPriceCode () == Movie.NEW_RELEASE
+                && rental.getDaysRented () > 1)
+            frequentRenterPoints++;
+        return frequentRenterPoints;
+    }*/
+
+    /*private static double getAmountForRental(Rental rental) {
+        double thisAmount = 0;
+        // determines the amount for each line
+        switch (rental.getMovie().getPriceCode ()) {
+            case Movie.REGULAR:
+                thisAmount += 2;
+                if (rental.getDaysRented () > 2)
+                    thisAmount += (rental.getDaysRented () - 2) * 1.5;
+                break;
+            case Movie.NEW_RELEASE:
+                thisAmount += rental.getDaysRented () * 3;
+                break;
+            case Movie.CHILDRENS:
+                thisAmount += 1.5;
+                if (rental.getDaysRented () > 3)
+                    thisAmount += (rental.getDaysRented () - 3) * 1.5;
+                break;
+        }
+        return thisAmount;
+    }*/
 }
